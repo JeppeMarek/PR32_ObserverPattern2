@@ -4,31 +4,22 @@
     {
         static void Main(string[] args)
         {
-            // Initiating Academies
-            Academy UCL = new Academy("UCL", "Seebladsgade");
-            Academy EASV = new Academy("EASV", "Alsion 3");
-            // Initiating Students
-            Student s1 = new Student(UCL, "Jens");
-            Student s2 = new Student(UCL, "Niels");
-            Student s3 = new Student(UCL, "Susan");
-            Student s4 = new Student(EASV, "Jeppe");
-            Student s5 = new Student(EASV, "Niclas");
-            // Attaching
-            UCL.Attach(s1);
-            UCL.Attach(s2);
-            UCL.Attach(s3);
-            EASV.Attach(s4);
-            EASV.Attach(s5);
-            // Setting messages and detaching a student
-            UCL.Message = "Så er der julefrokost!";
+            Academy p = new Academy("UCL", "Seebladsgade");
 
-            UCL.Detach(s2);
+            Student s1 = new Student(p, "Jens");
+            Student s2 = new Student(p, "Niels");
+            Student s3 = new Student(p, "Susan");
 
-            EASV.Message = "Mooooojn";
+            p.MessageChanged += s1.Update;
+            p.MessageChanged += s2.Update;
+            //p.MessageChanged = null;
+            p.MessageChanged += s3.Update;
 
-            EASV.Message = UCL.Message;
-            UCL.Message = "Så er der fredagsbar!";
+            p.Message = "Så er der julefrokost!";
 
+            p.MessageChanged -= s2.Update;
+
+            p.Message = "Så er der fredagsbar!";
         }
     }
 }

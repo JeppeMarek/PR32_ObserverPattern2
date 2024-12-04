@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace PR32_ObserverPattern2
 {
-    public class Academy : Organization, ISubject
+    public delegate void NotifyHandler();
+    public class Academy : Organization
     {
         // Fields
-        private List<IObserver> observers = new List<IObserver>();
+        //private List<IObserver> students = new List<IObserver>();
         private string _message;
+
         // Property
+        public NotifyHandler MessageChanged; 
         public string Message
         {
             get { return _message; }
             set
             {
                 _message = value;
-                Notify();
+                MessageChanged.Invoke();
             }
         }
         // Constructor
@@ -26,23 +29,10 @@ namespace PR32_ObserverPattern2
         {
             Address = address;
         }
-        // Methods
-        public void Attach(IObserver o)
-        {
-            observers.Add(o);
-        }
-
-        public void Detach(IObserver o)
-        {
-            observers.Remove(o);
-        }
 
         public void Notify()
         {
-            foreach (IObserver o in observers)
-            {
-                o.Update();
-            }
+            MessageChanged.Invoke();
         }
     }
 }
