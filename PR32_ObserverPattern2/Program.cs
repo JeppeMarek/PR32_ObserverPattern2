@@ -6,18 +6,18 @@
         {
             Academy p = new Academy("UCL", "Seebladsgade");
 
-            Student s1 = new Student(p, "Jens");
-            Student s2 = new Student(p, "Niels");
-            Student s3 = new Student(p, "Susan");
+            Student s1 = new Student("Jens");
+            Student s2 = new Student( "Niels");
+            Student s3 = new Student( "Susan");
 
-            p.MessageChanged += s1.Update;
-            p.MessageChanged += s2.Update;
-            //p.MessageChanged = null;
-            p.MessageChanged += s3.Update;
+            p.PropertyChanged += s1.Update;
+            p.PropertyChanged += s2.Update;
+            //p.PropertyChanged = null; Et event kan ikke ændres uden for klassen.
+            p.PropertyChanged += s3.Update;
 
             p.Message = "Så er der julefrokost!";
 
-            p.MessageChanged -= s2.Update;
+            p.PropertyChanged -= s2.Update;
 
             p.Message = "Så er der fredagsbar!";
         }
